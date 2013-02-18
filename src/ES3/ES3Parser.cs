@@ -17,8 +17,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Antlr.Runtime;
 using Antlr.Runtime.Tree;
-using Antlr.StringTemplate;
-using Antlr.StringTemplate.Language;
+using Antlr3.ST;
+using Antlr3.ST.Language;
 
 namespace ncoverjs.ES3
 {
@@ -413,7 +413,7 @@ namespace ncoverjs.ES3
 
         public bool Verbose { get; set; }
 
-        private bool isLeftHandSideAssign(RuleReturnScope lhs, IList<object> cached)
+        private bool isLeftHandSideAssign(IRuleReturnScope lhs, IList<object> cached)
         {
             if (cached[0] != null)
             {
@@ -501,7 +501,7 @@ namespace ncoverjs.ES3
             return builder.ToString();
         }
 
-        private static bool IsLeftHandSideExpression(RuleReturnScope lhs)
+        private static bool IsLeftHandSideExpression(IRuleReturnScope lhs)
         {
             if (lhs.Tree == null) // e.g. during backtracking
             {
@@ -567,7 +567,7 @@ namespace ncoverjs.ES3
                 for (var ix = lt.TokenIndex - 1; ix > 0; ix--)
                 {
                     lt = input.Get(ix);
-                    if (lt.Channel == Token.DEFAULT_CHANNEL)
+                    if (lt.Channel == TokenChannels.Default)
                     {
                         // On channel token found: stop scanning.
                         break;
@@ -576,7 +576,7 @@ namespace ncoverjs.ES3
                     if (lt.Type == EOL || (lt.Type == MultiLineComment && Regex.IsMatch(lt.Text, "/.*\r\n|\r|\n")))
                     {
                         // We found our EOL: promote the token to on channel, position the input on it and reset the rule start.
-                        lt.Channel = Token.DEFAULT_CHANNEL;
+                        lt.Channel = TokenChannels.Default;
                         input.Seek(lt.TokenIndex);
                         if (rule != null)
                         {
@@ -9280,7 +9280,7 @@ namespace ncoverjs.ES3
         private static readonly char[] DFA45_max = DFA.UnpackEncodedStringToUnsignedChars(DFA45_maxS);
         private static readonly short[] DFA45_accept = DFA.UnpackEncodedString(DFA45_acceptS);
         private static readonly short[] DFA45_special = DFA.UnpackEncodedString(DFA45_specialS);
-        private static readonly short[][] DFA45_transition = DFA.UnpackEncodedStringArray(DFA45_transitionS);
+        private static readonly short[][] DFA45_transition = UnpackEncodedStringArray(DFA45_transitionS);
 
         protected class DFA45 : DFA
         {
@@ -9315,7 +9315,7 @@ namespace ncoverjs.ES3
             {
                 case 0:
                     var LA45_1 = input.LA(1);
-                    var index45_1 = input.Index();
+                    var index45_1 = input.Index;
                     input.Rewind();
                     s = -1;
                     if (((((statement_scope)statement_stack.Peek()).isBlock = input.LA(1) == LBRACE)))
@@ -9389,7 +9389,7 @@ namespace ncoverjs.ES3
         private static readonly char[] DFA46_max = DFA.UnpackEncodedStringToUnsignedChars(DFA46_maxS);
         private static readonly short[] DFA46_accept = DFA.UnpackEncodedString(DFA46_acceptS);
         private static readonly short[] DFA46_special = DFA.UnpackEncodedString(DFA46_specialS);
-        private static readonly short[][] DFA46_transition = DFA.UnpackEncodedStringArray(DFA46_transitionS);
+        private static readonly short[][] DFA46_transition = UnpackEncodedStringArray(DFA46_transitionS);
 
         protected class DFA46 : DFA
         {
@@ -9478,13 +9478,23 @@ namespace ncoverjs.ES3
                 ""
             };
 
+        private static short[][] UnpackEncodedStringArray(string[] encodedStrings)
+        {
+            short[][] array = new short[encodedStrings.Length][];
+            for (int i = 0; i < encodedStrings.Length; i++)
+            {
+                array[i] = DFA.UnpackEncodedString(encodedStrings[i]);
+            }
+            return array;
+        }
+
         private static readonly short[] DFA79_eot = DFA.UnpackEncodedString(DFA79_eotS);
         private static readonly short[] DFA79_eof = DFA.UnpackEncodedString(DFA79_eofS);
         private static readonly char[] DFA79_min = DFA.UnpackEncodedStringToUnsignedChars(DFA79_minS);
         private static readonly char[] DFA79_max = DFA.UnpackEncodedStringToUnsignedChars(DFA79_maxS);
         private static readonly short[] DFA79_accept = DFA.UnpackEncodedString(DFA79_acceptS);
         private static readonly short[] DFA79_special = DFA.UnpackEncodedString(DFA79_specialS);
-        private static readonly short[][] DFA79_transition = DFA.UnpackEncodedStringArray(DFA79_transitionS);
+        private static readonly short[][] DFA79_transition = UnpackEncodedStringArray(DFA79_transitionS);
 
         protected class DFA79 : DFA
         {
@@ -9517,7 +9527,7 @@ namespace ncoverjs.ES3
             {
                 case 0:
                     var LA79_1 = input.LA(1);
-                    var index79_1 = input.Index();
+                    var index79_1 = input.Index;
                     input.Rewind();
                     s = -1;
                     if (((input.LA(1) == FUNCTION)))
@@ -9539,9 +9549,9 @@ namespace ncoverjs.ES3
             throw nvae79;
         }
 
-        public static readonly BitSet FOLLOW_reservedWord_in_token1762 = new BitSet(new ulong[] { 0x0000000000000002UL });
-        public static readonly BitSet FOLLOW_Identifier_in_token1767 = new BitSet(new ulong[] { 0x0000000000000002UL });
-        public static readonly BitSet FOLLOW_punctuator_in_token1772 = new BitSet(new ulong[] { 0x0000000000000002UL });
+        public static readonly BitSet FOLLOW_reservedWord_in_token1762 = new BitSet(new[] { 0x0000000000000002UL });
+        public static readonly BitSet FOLLOW_Identifier_in_token1767 = new BitSet(new[] { 0x0000000000000002UL });
+        public static readonly BitSet FOLLOW_punctuator_in_token1772 = new BitSet(new[] { 0x0000000000000002UL });
         public static readonly BitSet FOLLOW_numericLiteral_in_token1777 = new BitSet(new ulong[] { 0x0000000000000002UL });
         public static readonly BitSet FOLLOW_StringLiteral_in_token1782 = new BitSet(new ulong[] { 0x0000000000000002UL });
         public static readonly BitSet FOLLOW_keyword_in_reservedWord1795 = new BitSet(new ulong[] { 0x0000000000000002UL });

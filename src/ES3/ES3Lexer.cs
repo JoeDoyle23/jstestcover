@@ -21,6 +21,9 @@ namespace ncoverjs.ES3
 {
     public partial class ES3Lexer : Lexer
     {
+        private const int DEFAULT_TOKEN_CHANNEL = 0;
+        private const int HIDDEN = 99;
+
         public const int PACKAGE = 52;
         public const int FUNCTION = 17;
         public const int LOR = 95;
@@ -267,7 +270,7 @@ namespace ncoverjs.ES3
         public IToken nextToken()
         {
             IToken result = NextToken();
-            if (result.Channel == Token.DEFAULT_CHANNEL)
+            if (result.Channel == TokenChannels.Default)
             {
                 last = result;
             }
@@ -2957,9 +2960,7 @@ namespace ncoverjs.ES3
                 // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:481:4: '\\\\'
                 {
                     Match('\\');
-
                 }
-
             }
             finally
             {
@@ -2977,9 +2978,7 @@ namespace ncoverjs.ES3
                 // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:485:4: '\"'
                 {
                     Match('\"');
-
                 }
-
             }
             finally
             {
@@ -5281,301 +5280,258 @@ namespace ncoverjs.ES3
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:10: NULL
                     {
                         mNULL();
-
                     }
                     break;
                 case 2:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:15: TRUE
                     {
                         mTRUE();
-
                     }
                     break;
                 case 3:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:20: FALSE
                     {
                         mFALSE();
-
                     }
                     break;
                 case 4:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:26: BREAK
                     {
                         mBREAK();
-
                     }
                     break;
                 case 5:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:32: CASE
                     {
                         mCASE();
-
                     }
                     break;
                 case 6:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:37: CATCH
                     {
                         mCATCH();
-
                     }
                     break;
                 case 7:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:43: CONTINUE
                     {
                         mCONTINUE();
-
                     }
                     break;
                 case 8:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:52: DEFAULT
                     {
                         mDEFAULT();
-
                     }
                     break;
                 case 9:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:60: DELETE
                     {
                         mDELETE();
-
                     }
                     break;
                 case 10:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:67: DO
                     {
                         mDO();
-
                     }
                     break;
                 case 11:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:70: ELSE
                     {
                         mELSE();
-
                     }
                     break;
                 case 12:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:75: FINALLY
                     {
                         mFINALLY();
-
                     }
                     break;
                 case 13:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:83: FOR
                     {
                         mFOR();
-
                     }
                     break;
                 case 14:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:87: FUNCTION
                     {
                         mFUNCTION();
-
                     }
                     break;
                 case 15:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:96: IF
                     {
                         mIF();
-
                     }
                     break;
                 case 16:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:99: IN
                     {
                         mIN();
-
                     }
                     break;
                 case 17:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:102: INSTANCEOF
                     {
                         mINSTANCEOF();
-
                     }
                     break;
                 case 18:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:113: NEW
                     {
                         mNEW();
-
                     }
                     break;
                 case 19:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:117: RETURN
                     {
                         mRETURN();
-
                     }
                     break;
                 case 20:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:124: SWITCH
                     {
                         mSWITCH();
-
                     }
                     break;
                 case 21:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:131: THIS
                     {
                         mTHIS();
-
                     }
                     break;
                 case 22:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:136: THROW
                     {
                         mTHROW();
-
                     }
                     break;
                 case 23:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:142: TRY
                     {
                         mTRY();
-
                     }
                     break;
                 case 24:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:146: TYPEOF
                     {
                         mTYPEOF();
-
                     }
                     break;
                 case 25:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:153: VAR
                     {
                         mVAR();
-
                     }
                     break;
                 case 26:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:157: VOID
                     {
                         mVOID();
-
                     }
                     break;
                 case 27:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:162: WHILE
                     {
                         mWHILE();
-
                     }
                     break;
                 case 28:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:168: WITH
                     {
                         mWITH();
-
                     }
                     break;
                 case 29:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:173: ABSTRACT
                     {
                         mABSTRACT();
-
                     }
                     break;
                 case 30:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:182: BOOLEAN
                     {
                         mBOOLEAN();
-
                     }
                     break;
                 case 31:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:190: BYTE
                     {
                         mBYTE();
-
                     }
                     break;
                 case 32:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:195: CHAR
                     {
                         mCHAR();
-
                     }
                     break;
                 case 33:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:200: CLASS
                     {
                         mCLASS();
-
                     }
                     break;
                 case 34:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:206: CONST
                     {
                         mCONST();
-
                     }
                     break;
                 case 35:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:212: DEBUGGER
                     {
                         mDEBUGGER();
-
                     }
                     break;
                 case 36:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:221: DOUBLE
                     {
                         mDOUBLE();
-
                     }
                     break;
                 case 37:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:228: ENUM
                     {
                         mENUM();
-
                     }
                     break;
                 case 38:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:233: EXPORT
                     {
                         mEXPORT();
-
                     }
                     break;
                 case 39:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:240: EXTENDS
                     {
                         mEXTENDS();
-
                     }
                     break;
                 case 40:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:248: FINAL
                     {
                         mFINAL();
-
                     }
                     break;
                 case 41:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:254: FLOAT
                     {
                         mFLOAT();
-
                     }
                     break;
                 case 42:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:260: GOTO
                     {
                         mGOTO();
-
                     }
                     break;
                 case 43:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:265: IMPLEMENTS
                     {
                         mIMPLEMENTS();
-
                     }
                     break;
                 case 44:
@@ -5589,21 +5545,18 @@ namespace ncoverjs.ES3
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:283: INT
                     {
                         mINT();
-
                     }
                     break;
                 case 46:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:287: INTERFACE
                     {
                         mINTERFACE();
-
                     }
                     break;
                 case 47:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:297: LONG
                     {
                         mLONG();
-
                     }
                     break;
                 case 48:
@@ -5701,7 +5654,6 @@ namespace ncoverjs.ES3
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:407: RBRACE
                     {
                         mRBRACE();
-
                     }
                     break;
                 case 62:
@@ -5722,7 +5674,6 @@ namespace ncoverjs.ES3
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:428: LBRACK
                     {
                         mLBRACK();
-
                     }
                     break;
                 case 65:
@@ -5736,14 +5687,12 @@ namespace ncoverjs.ES3
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:442: DOT
                     {
                         mDOT();
-
                     }
                     break;
                 case 67:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:446: SEMIC
                     {
                         mSEMIC();
-
                     }
                     break;
                 case 68:
@@ -6086,14 +6035,12 @@ namespace ncoverjs.ES3
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:765: StringLiteral
                     {
                         mStringLiteral();
-
                     }
                     break;
                 case 117:
                     // C:\\Personal\\yuitest\\java\\src\\com\\yahoo\\platform\\yuitest\\coverage\\grammar\\ES3YUITest.g:1:779: RegularExpressionLiteral
                     {
                         mRegularExpressionLiteral();
-
                     }
                     break;
 
@@ -6107,11 +6054,10 @@ namespace ncoverjs.ES3
 
         private void InitializeCyclicDFAs()
         {
-            this.dfa19 = new DFA19(this);
-            this.dfa32 = new DFA32(this);
+            dfa19 = new DFA19(this);
+            dfa32 = new DFA32(this);
 
-            this.dfa32.specialStateTransitionHandler =
-                new DFA.SpecialStateTransitionHandler(DFA32_SpecialStateTransition);
+            dfa32.SpecialStateTransitionHandler = new DFA.SpecialStateTransition(DFA32_SpecialStateTransition);
         }
 
         private const string DFA19_eotS =
@@ -6817,14 +6763,14 @@ namespace ncoverjs.ES3
             public DFA32(BaseRecognizer recognizer)
             {
                 this.recognizer = recognizer;
-                this.decisionNumber = 32;
-                this.eot = DFA32_eot;
-                this.eof = DFA32_eof;
-                this.min = DFA32_min;
-                this.max = DFA32_max;
-                this.accept = DFA32_accept;
-                this.special = DFA32_special;
-                this.transition = DFA32_transition;
+                decisionNumber = 32;
+                eot = DFA32_eot;
+                eof = DFA32_eof;
+                min = DFA32_min;
+                max = DFA32_max;
+                accept = DFA32_accept;
+                special = DFA32_special;
+                transition = DFA32_transition;
 
             }
 
@@ -6844,14 +6790,14 @@ namespace ncoverjs.ES3
         //throws NoViableAltException
         {
             IIntStream input = _input;
-            int _s = s;
+            var _s = s;
             switch (s)
             {
                 case 0:
-                    int LA32_40 = input.LA(1);
+                    var LA32_40 = input.LA(1);
 
 
-                    int index32_40 = input.Index();
+                    var index32_40 = input.Index;
                     input.Rewind();
                     s = -1;
                     if ((LA32_40 == '='))
@@ -6884,10 +6830,10 @@ namespace ncoverjs.ES3
                     if (s >= 0) return s;
                     break;
                 case 1:
-                    int LA32_118 = input.LA(1);
+                    var LA32_118 = input.LA(1);
 
 
-                    int index32_118 = input.Index();
+                    var index32_118 = input.Index;
                     input.Rewind();
                     s = -1;
                     if (((LA32_118 >= '\u0000' && LA32_118 <= '\t') || (LA32_118 >= '\u000B' && LA32_118 <= '\f') ||
@@ -6904,8 +6850,7 @@ namespace ncoverjs.ES3
                     if (s >= 0) return s;
                     break;
             }
-            NoViableAltException nvae32 =
-                new NoViableAltException(dfa.Description, 32, _s, input);
+            var nvae32 = new NoViableAltException(dfa.Description, 32, _s, input);
             dfa.Error(nvae32);
             throw nvae32;
         }

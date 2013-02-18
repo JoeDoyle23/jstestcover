@@ -34,17 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="antlr.runtime">
-      <HintPath>..\lib\antlr.runtime.dll</HintPath>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.1, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Antlr3.Runtime">
-      <HintPath>..\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Antlr3.Utility">
-      <HintPath>..\lib\Antlr3.Utility.dll</HintPath>
-    </Reference>
-    <Reference Include="StringTemplate">
-      <HintPath>..\lib\StringTemplate.dll</HintPath>
+    <Reference Include="Antlr3.StringTemplate">
+      <HintPath>lib\Antlr3.StringTemplate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -106,9 +101,9 @@
     <Compile Include="CommandLine\Text\HeadingInfo.cs" />
     <Compile Include="CommandLine\Text\HelpText.cs" />
     <Compile Include="CommandLine\Text\_ParsingErrorsHandler.cs" />
+    <Compile Include="ES3\ES3YUITestLexer.cs" />
+    <Compile Include="ES3\ES3YUITestParser.cs" />
     <Compile Include="Instrumentation\DirectoryInstrumenter.cs" />
-    <Compile Include="ES3\ES3Lexer.cs" />
-    <Compile Include="ES3\ES3Parser.cs" />
     <Compile Include="Instrumentation\FileInstrumenter.cs" />
     <Compile Include="Instrumentation\JavaScriptInstrumenter.cs" />
     <Compile Include="Program.cs" />
@@ -120,6 +115,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CommandLine\Core\SR.strings" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lib\Antlr3.Runtime.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="lib\Antlr3.StringTemplate.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Text;
 using ncoverjs.Instrumentation;
 
@@ -8,6 +9,8 @@ namespace ncoverjs
     {
         static void Main(string[] args)
         {
+            EnableEmbeddedAssemblyLoading();
+
             var settings = new Settings();
 
             if (!CommandLine.Parser.Default.ParseArguments(args, settings))
@@ -21,7 +24,21 @@ namespace ncoverjs
             //if (options.Verbose) Console.WriteLine("Filename: {0}", options.InputFile);
 
             var fileI = new FileInstrumenter();
-            fileI.Instrument(@"C:\Personal\ncoverjs\src\CourseSelection.js", @"C:\Personal\ncoverjs\src\CourseSelection-I.js", Encoding.UTF8);
+            fileI.Instrument(@"CatalogDetails.js", @"CatalogDetails-I.js", Encoding.UTF8);
+        }
+
+        private static void EnableEmbeddedAssemblyLoading()
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, arguments) =>
+                {
+                    var resourceName = "ncoverjs.lib." + new AssemblyName(arguments.Name).Name + ".dll";
+                    using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+                    {
+                        var assemblyData = new Byte[stream.Length];
+                        stream.Read(assemblyData, 0, assemblyData.Length);
+                        return Assembly.Load(assemblyData);
+                    }
+                };
         }
     }
 }

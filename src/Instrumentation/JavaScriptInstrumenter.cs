@@ -2,8 +2,7 @@
 using System.Reflection;
 using System.Text;
 using Antlr.Runtime;
-using Antlr.StringTemplate;
-using ncoverjs.ES3;
+using Antlr3.ST;
 
 namespace ncoverjs.Instrumentation
 {
@@ -82,11 +81,11 @@ namespace ncoverjs.Instrumentation
 
             //setup parser
             var stream = new ANTLRReaderStream(new StringReader(code.ToString()));
-            stream.SourceName = inputFile;
-            var lexer = new ES3Lexer(stream);
+            //stream.SourceName = inputFile;
+            var lexer = new ES3YUITestLexer(stream);
             var tokens = new TokenRewriteStream(lexer);
-            var parser = new ES3Parser(tokens);
-            parser.TemplateLib = testTemplate;
+            var parser = new ES3YUITestParser(tokens);
+            parser.TemplateGroup = testTemplate;
             //parser.setVerbose(verbose);
 
             var result = "";
