@@ -11,11 +11,12 @@
     <RootNamespace>ncoverjs</RootNamespace>
     <AssemblyName>ncoverjs</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -34,11 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antlr3.Runtime, Version=3.5.0.1, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Antlr3.StringTemplate">
+    <Reference Include="Antlr3.StringTemplate, Version=3.5.0.1, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Antlr3.StringTemplate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -101,8 +103,12 @@
     <Compile Include="CommandLine\Text\HeadingInfo.cs" />
     <Compile Include="CommandLine\Text\HelpText.cs" />
     <Compile Include="CommandLine\Text\_ParsingErrorsHandler.cs" />
-    <Compile Include="ES3\ES3YUITestLexer.cs" />
-    <Compile Include="ES3\ES3YUITestParser.cs" />
+    <Compile Include="ES3\ES3YUITestLexer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ES3\ES3YUITestParser.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Instrumentation\DirectoryInstrumenter.cs" />
     <Compile Include="Instrumentation\FileInstrumenter.cs" />
     <Compile Include="Instrumentation\JavaScriptInstrumenter.cs" />
@@ -114,6 +120,7 @@
     <EmbeddedResource Include="templates\ES3YUITestTemplates.stg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="CommandLine\Core\SR.strings" />
   </ItemGroup>
   <ItemGroup>

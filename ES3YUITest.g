@@ -306,9 +306,9 @@ private bool IsIdentifierStartUnicode(int ch)
     //return Character.isJavaIdentifierStart(ch);
 }
 
-public IToken nextToken()
+public override IToken NextToken()
 {
-	var result = NextToken();
+	var result = base.NextToken();
 	if (result.Channel == TokenChannels.Default)
 	{
 		last = result;
@@ -320,7 +320,8 @@ public IToken nextToken()
 @parser::members
 {
 
-private bool Verbose { get; set; }
+public bool Verbose { get; set; }
+public string SourceFileName { get; set; }
 
 private bool IsLeftHandSideAssign(TemplateParserRuleReturnScope<StringTemplate, IToken> lhs, object[] cached)
 {
@@ -1748,7 +1749,7 @@ scope {
   $program::executableLines = new List<int>();
   $program::functions = new List<string>();
   $program::stopLine = 0;
-  $program::name = SourceName;
+  $program::name = SourceFileName;
   $program::anonymousFunctionCount = 0;
 }
 	: (sourceElement*) { $program::executableLines.Sort();}

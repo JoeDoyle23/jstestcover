@@ -32,6 +32,7 @@
  * This C# Port is also licensed under the BSD License.
  */
 
+using System;
 using Antlr.Runtime;
 using System.Text.RegularExpressions;
 
@@ -287,9 +288,9 @@ public partial class ES3YUITestLexer : Antlr.Runtime.Lexer
 	    //return Character.isJavaIdentifierStart(ch);
 	}
 
-	public IToken nextToken()
+	public override IToken NextToken()
 	{
-		var result = NextToken();
+		var result = base.NextToken();
 		if (result.Channel == TokenChannels.Default)
 		{
 			last = result;

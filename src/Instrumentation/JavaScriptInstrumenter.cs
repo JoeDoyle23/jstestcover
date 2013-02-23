@@ -81,12 +81,11 @@ namespace ncoverjs.Instrumentation
 
             //setup parser
             var stream = new ANTLRReaderStream(new StringReader(code.ToString()));
-            //stream.SourceName = inputFile;
             var lexer = new ES3YUITestLexer(stream);
             var tokens = new TokenRewriteStream(lexer);
             var parser = new ES3YUITestParser(tokens);
             parser.TemplateGroup = testTemplate;
-            //parser.setVerbose(verbose);
+            parser.SourceFileName = inputFile;
 
             var result = "";
 

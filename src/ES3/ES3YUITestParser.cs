@@ -20,6 +20,11 @@
 #pragma warning disable 3019
 
 
+using Antlr.Runtime;
+using Antlr.Runtime.Misc;
+using Antlr.Runtime.Tree;
+using Antlr3.ST;
+using Antlr3.ST.Language;
 /*
  * YUI Test Coverage
  * Author: Nicholas C. Zakas <nzakas@yahoo-inc.com>
@@ -32,22 +37,10 @@
  * This C# Port is also licensed under the BSD License.
  */
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
-using Antlr.Runtime;
-using Antlr.Runtime.Tree;
-using Antlr3.ST;
-using Antlr3.ST.Language;
 
-
-using System.Collections.Generic;
-using Antlr.Runtime;
-using Antlr.Runtime.Misc;
-
-using Antlr3.ST;
-using Antlr3.ST.Language;
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "3.5.0.1")]
 [System.CLSCompliant(false)]
 public partial class ES3YUITestParser : Antlr.Runtime.Parser
@@ -233,6 +226,7 @@ public partial class ES3YUITestParser : Antlr.Runtime.Parser
     {
         OnCreated();
     }
+
     private StringTemplateGroup _templateGroup = new StringTemplateGroup("ES3YUITestParserTemplates", typeof(AngleBracketTemplateLexer));
 
     public StringTemplateGroup TemplateGroup
@@ -245,6 +239,7 @@ public partial class ES3YUITestParser : Antlr.Runtime.Parser
     public override string GrammarFileName { get { return "ES3YUITest.g"; } }
 
     public bool Verbose { get; set; }
+    public string SourceFileName { get; set; }
 
     private bool IsLeftHandSideAssign(TemplateParserRuleReturnScope<StringTemplate, IToken> lhs, object[] cached)
     {
@@ -335,42 +330,42 @@ public partial class ES3YUITestParser : Antlr.Runtime.Parser
 
     private bool IsLeftHandSideExpression(TemplateParserRuleReturnScope<StringTemplate, IToken> lhs)
     {
-        if (lhs == null) // e.g. during backtracking
+        if (lhs.Start == null) // e.g. during backtracking
         {
             return true;
         }
         else
         {
-            return false;
-            //switch (((BaseTree)lhs.Tree).Type)
-            //{
-            //    // primaryExpression
-            //    case THIS:
-            //    case Identifier:
-            //    case NULL:
-            //    case TRUE:
-            //    case FALSE:
-            //    case DecimalLiteral:
-            //    case OctalIntegerLiteral:
-            //    case HexIntegerLiteral:
-            //    case StringLiteral:
-            //    case RegularExpressionLiteral:
-            //    case ARRAY:
-            //    case OBJECT:
-            //    case PAREXPR:
-            //    // functionExpression
-            //    case FUNCTION:
-            //    // newExpression
-            //    case NEW:
-            //    // leftHandSideExpression
-            //    case CALL:
-            //    case BYFIELD:
-            //    case BYINDEX:
-            //        return true;
+            var tree = new CommonTree(lhs.Start);
+            switch (tree.Type)
+            {
+                // primaryExpression
+                case THIS:
+                case Identifier:
+                case NULL:
+                case TRUE:
+                case FALSE:
+                case DecimalLiteral:
+                case OctalIntegerLiteral:
+                case HexIntegerLiteral:
+                case StringLiteral:
+                case RegularExpressionLiteral:
+                case ARRAY:
+                case OBJECT:
+                case PAREXPR:
+                // functionExpression
+                case FUNCTION:
+                // newExpression
+                case NEW:
+                // leftHandSideExpression
+                case CALL:
+                case BYFIELD:
+                case BYINDEX:
+                    return true;
 
-            //    default:
-            //        return false;
-            //}
+                default:
+                    return false;
+            }
         }
     }
 
@@ -6841,8 +6836,8 @@ public partial class ES3YUITestParser : Antlr.Runtime.Parser
                     // TEMPLATE REWRITE
                     // 1363:2: -> template(p=input.ToString($start.TokenIndex, $statement.start.TokenIndex - 1)body=WrapInBraces($statement.start, $statement.stop, input)elseClause=\r\n\t $elseStatement.stop != null ? input.ToString($statement.stop.TokenIndex+1, $elseStatement.stop.TokenIndex ) : null) \"<p><body><elseClause>\"
                     {
-                        retval.Template = new StringTemplate(TemplateGroup, "<p><body><elseClause>",
-                        new Dictionary<string, object>() { {"p", input.ToString(retval.Start.TokenIndex, (statement1!=null?((IToken)statement1.Start):default(IToken)).TokenIndex - 1)}, {"body", WrapInBraces((statement1!=null?((IToken)statement1.Start):default(IToken)), (statement1!=null?((IToken)statement1.Stop):default(IToken)), input)}, {"elseClause", 
+                        retval.Template = new StringTemplate(TemplateGroup, "<p><body><else>",//"Clause>",
+                        new Dictionary<string, object>() { {"p", input.ToString(retval.Start.TokenIndex, (statement1!=null?((IToken)statement1.Start):default(IToken)).TokenIndex - 1)}, {"body", WrapInBraces((statement1!=null?((IToken)statement1.Start):default(IToken)), (statement1!=null?((IToken)statement1.Stop):default(IToken)), input)}, {"else",//"Clause", 
 				             (elseStatement2!=null?((IToken)elseStatement2.Stop):default(IToken)) != null ? input.ToString((statement1!=null?((IToken)statement1.Stop):default(IToken)).TokenIndex+1, (elseStatement2!=null?((IToken)elseStatement2.Stop):default(IToken)).TokenIndex ) : null} }
                     );
                     }
@@ -9971,7 +9966,7 @@ public partial class ES3YUITestParser : Antlr.Runtime.Parser
     // $ANTLR start "program"
     // ES3YUITest.g:1739:1: program : ( ( sourceElement )* ) -> cover_file(src=$program::namecode=$textlines=ToObjectLiteral($program::executableLines, true)funcs=ToObjectLiteral($program::functions, false)lineCount=$program::executableLines.CountfuncCount=$program::functions.Count);
     [GrammarRule("program")]
-    private TemplateParserRuleReturnScope<StringTemplate, IToken> program()
+    public TemplateParserRuleReturnScope<StringTemplate, IToken> program()
     {
         EnterRule_program();
         EnterRule("program", 85);
@@ -9984,7 +9979,7 @@ public partial class ES3YUITestParser : Antlr.Runtime.Parser
         program_stack.Peek().executableLines = new List<int>();
         program_stack.Peek().functions = new List<string>();
         program_stack.Peek().stopLine = 0;
-        program_stack.Peek().name = SourceName;
+        program_stack.Peek().name = SourceFileName;
         program_stack.Peek().anonymousFunctionCount = 0;
 
         try
