@@ -32,18 +32,12 @@
  * This C# Port is also licensed under the BSD License.
  */
 
-using System;
 using Antlr.Runtime;
 using System.Text.RegularExpressions;
 
 
-using System.Collections.Generic;
-using Antlr.Runtime;
-using Antlr.Runtime.Misc;
-
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "3.5.0.1")]
-[System.CLSCompliant(false)]
-public partial class ES3YUITestLexer : Antlr.Runtime.Lexer
+public partial class ES3YUITestLexer : Lexer
 {
 	public const int EOF=-1;
 	public const int ABSTRACT=4;

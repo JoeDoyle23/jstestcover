@@ -8,9 +8,9 @@ namespace ncoverjs.Instrumentation
 {
     public class JavaScriptInstrumenter
     {
-        string inputFile;
-        string inputPath;
-        StreamReader inputStream;
+        readonly string inputFile;
+        readonly string inputPath;
+        readonly StreamReader inputStream;
 
         public JavaScriptInstrumenter(StreamReader inputStream, string inputFilename)
             : this(inputStream, inputFilename, string.Empty)
