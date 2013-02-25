@@ -1,4 +1,4 @@
-ncoverjs
+jstestcover
 ========
 
 .NET JavaScript Code Coverage tool

@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("ncoverjs")]
+[assembly: AssemblyTitle("jstestcover")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ncoverjs")]
+[assembly: AssemblyProduct("jstestcover")]
 [assembly: AssemblyCopyright("Copyright © Joe Doyle 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

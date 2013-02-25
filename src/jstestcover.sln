@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ncoverjs", "ncoverjs\ncoverjs.csproj", "{19D59689-035A-49D4-A63C-E6058A0820DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jstestcover", "jstestcover\jstestcover.csproj", "{19D59689-035A-49D4-A63C-E6058A0820DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ncoverjs-reporter", "ncoverjs-reporter\ncoverjs-reporter.csproj", "{2D987A0E-3984-4939-A14B-5B6D9630FEA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jstestcover-reporter", "jstestcover-reporter\jstestcover-reporter.csproj", "{2D987A0E-3984-4939-A14B-5B6D9630FEA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
