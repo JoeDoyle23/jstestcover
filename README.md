@@ -15,4 +15,4 @@ improvements.
 This is currently an alpha.  This is not ready for use just yet!
 
 ##License
-ncoverjs is licensed under the New BSD License.
+jstestcover is licensed under the New BSD License.
