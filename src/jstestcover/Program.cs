@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection;
 using System.Text;
-using ncoverjs.Instrumentation;
+using jstestcover.Instrumentation;
 
-namespace ncoverjs
+namespace jstestcover
 {
     class Program
     {

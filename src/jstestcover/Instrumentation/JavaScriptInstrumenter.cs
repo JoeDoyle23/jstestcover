@@ -4,7 +4,7 @@ using System.Text;
 using Antlr.Runtime;
 using Antlr3.ST;
 
-namespace ncoverjs.Instrumentation
+namespace jstestcover.Instrumentation
 {
     public class JavaScriptInstrumenter
     {
@@ -63,6 +63,8 @@ namespace ncoverjs.Instrumentation
                 code.Append("\n");
             }
 
+            inputStream.Close();
+
             var index = codeLines.Length - 1;
             switch (codeLines.ToString()[index])
             {
@@ -100,10 +102,9 @@ namespace ncoverjs.Instrumentation
 
             //output the resulting file
             outputStream.Write(headerTemplate.ToString());
-            outputStream.Write("\n");
+            outputStream.WriteLine();
             outputStream.Write(codeLines.ToString());
-            outputStream.Write("\n");
-            outputStream.Flush();
+            outputStream.WriteLine();
             outputStream.Write(result);
             outputStream.Flush();
         }

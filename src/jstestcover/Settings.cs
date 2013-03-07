@@ -2,7 +2,7 @@
 using CommandLine;
 using CommandLine.Text;
 
-namespace ncoverjs
+namespace jstestcover
 {
     public class Settings
     {
@@ -11,13 +11,13 @@ namespace ncoverjs
         {
             var help = new HelpText
             {
-                Heading = new HeadingInfo("ncoverjs", "1.0.0"),
+                Heading = new HeadingInfo("jstestcover", "1.0.0"),
                 Copyright = new CopyrightInfo("Joe Doyle", 2013),
                 AdditionalNewLineAfterOption = false,
                 AddDashesToOption = true
             };
             help.AddPreOptionsLine(" ");
-            help.AddPreOptionsLine("Usage: ncoverjs [options] [file|dir]");
+            help.AddPreOptionsLine("Usage: jstestcover [options] [file|dir]");
             help.AddOptions(this);
             return help;
         }

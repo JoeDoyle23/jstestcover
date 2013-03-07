@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace ncoverjs.Instrumentation
+namespace jstestcover.Instrumentation
 {
     public class FileInstrumenter
     {
