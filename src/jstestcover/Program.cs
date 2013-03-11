@@ -20,11 +20,10 @@ namespace jstestcover
             {
                 Console.WriteLine(settings.GetUsage());
             }
-            // Consume values here
-            //if (options.Verbose) Console.WriteLine("Filename: {0}", options.InputFile);
 
-            var fileI = new FileInstrumenter();
-            fileI.Instrument(@"CatalogDetails.js", @"CatalogDetails-I.js", Encoding.UTF8);
+            var coverController = new CoverController(settings);
+            
+            coverController.RunInstrumentation();
         }
 
         private static void EnableEmbeddedAssemblyLoading()

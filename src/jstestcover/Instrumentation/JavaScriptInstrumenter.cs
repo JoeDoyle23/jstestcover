@@ -6,34 +6,14 @@ using Antlr3.ST;
 
 namespace jstestcover.Instrumentation
 {
-    public class JavaScriptInstrumenter
+    public class JavaScriptInstrumenter : IInstrumenter
     {
-        readonly string inputFile;
-        readonly string inputPath;
-        readonly StreamReader inputStream;
-
-        public JavaScriptInstrumenter(StreamReader inputStream, string inputFilename)
-            : this(inputStream, inputFilename, string.Empty)
+        public virtual void Instrument(StreamReader inputStream, string inputFilename, StreamWriter outputStream)
         {
-        }
+            var testTemplate = LoadStringTemplateGroup();
 
-        public JavaScriptInstrumenter(StreamReader inputStream, string inputFilename, string path)
-        {
-            inputFile = inputFilename;
-            this.inputStream = inputStream;
-            inputPath = path;
-        }
-
-        public void Instrument(StreamWriter outputStream, bool verbose)
-        {
-            //get string headerTemplate group
-            StringTemplateGroup testTemplate;
-
-            var stgstream = Assembly.GetExecutingAssembly().GetManifestResourceStream("ncoverjs.templates.ES3YUITestTemplates.stg");
-            using (var streamReader = new StreamReader(stgstream))
-            {
-                testTemplate = new StringTemplateGroup(new StringReader(streamReader.ReadToEnd()));
-            }
+            var inputPath = Path.GetFullPath(inputFilename);
+            var inputFile = Path.GetFileName(inputFilename);
 
             //get headerTemplate for file header
             var headerTemplate = testTemplate.GetInstanceOf("file_header");
@@ -52,44 +32,42 @@ namespace jstestcover.Instrumentation
 
             while ((line = inputStream.ReadLine()) != null)
             {
-
                 //build up array of lines
                 codeLines.Append("\"");
-                codeLines.Append(line.Replace("\\", "\\\\").Replace("\"", "\\\""));
+                codeLines.Append(line.Replace(@"\", @"\\").Replace("\"", "\\\""));
                 codeLines.Append("\",");
 
                 //build up source code
-                code.Append(line);
-                code.Append("\n");
+                code.AppendLine(line);
             }
 
-            inputStream.Close();
-
             var index = codeLines.Length - 1;
-            switch (codeLines.ToString()[index])
+            switch (codeLines[index])
             {
-                case ',':  //if there's a dangling comma, replace it
+                case ',': //if there's a dangling comma, replace it
                     codeLines.Remove(index, 1);
                     codeLines.Insert(index, ']');
                     break;
-                case '[':  //empty file
+                case '[': //empty file
                     codeLines.Append("]");
                     break;
-                //no default
+                    //no default
             }
             codeLines.Append(";");
 
             //output full path
 
             //setup parser
-            var stream = new ANTLRReaderStream(new StringReader(code.ToString()));
-            var lexer = new ES3YUITestLexer(stream);
+            var antlrStream = new ANTLRReaderStream(new StringReader(code.ToString()));
+            var lexer = new ES3YUITestLexer(antlrStream);
             var tokens = new TokenRewriteStream(lexer);
-            var parser = new ES3YUITestParser(tokens);
-            parser.TemplateGroup = testTemplate;
-            parser.SourceFileName = inputFile;
+            var parser = new ES3YUITestParser(tokens)
+                             {
+                                 TemplateGroup = testTemplate,
+                                 SourceFileName = inputFile
+                             };
 
-            var result = "";
+            var result = string.Empty;
 
             //an empty string will cause the parser to explode
             if (code.ToString().Trim().Length > 0)
@@ -98,8 +76,6 @@ namespace jstestcover.Instrumentation
                 result = tokens.ToString();
             }
 
-            //close input stream in case writing to the same place
-
             //output the resulting file
             outputStream.Write(headerTemplate.ToString());
             outputStream.WriteLine();
@@ -107,6 +83,15 @@ namespace jstestcover.Instrumentation
             outputStream.WriteLine();
             outputStream.Write(result);
             outputStream.Flush();
+        }
+
+        StringTemplateGroup LoadStringTemplateGroup()
+        {
+            var stgstream = Assembly.GetExecutingAssembly().GetManifestResourceStream("ncoverjs.templates.ES3YUITestTemplates.stg");
+            using (var streamReader = new StreamReader(stgstream))
+            {
+                return new StringTemplateGroup(new StringReader(streamReader.ReadToEnd()));
+            }
         }
     }
 }

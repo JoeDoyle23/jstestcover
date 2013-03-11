@@ -103,6 +103,7 @@
     <Compile Include="CommandLine\Text\HeadingInfo.cs" />
     <Compile Include="CommandLine\Text\HelpText.cs" />
     <Compile Include="CommandLine\Text\_ParsingErrorsHandler.cs" />
+    <Compile Include="CoverController.cs" />
     <Compile Include="ES3\ES3YUITestLexer.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -111,6 +112,7 @@
     </Compile>
     <Compile Include="Instrumentation\DirectoryInstrumenter.cs" />
     <Compile Include="Instrumentation\FileInstrumenter.cs" />
+    <Compile Include="Instrumentation\IInstrumenter.cs" />
     <Compile Include="Instrumentation\JavaScriptInstrumenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

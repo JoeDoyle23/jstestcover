@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jstestcover", "jstestcover\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jstestcover-reporter", "jstestcover-reporter\jstestcover-reporter.csproj", "{2D987A0E-3984-4939-A14B-5B6D9630FEA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jstestcover.tests", "jstestcover.tests\jstestcover.tests.csproj", "{C308095D-1EC1-4C03-9746-72959EC0278A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{2D987A0E-3984-4939-A14B-5B6D9630FEA8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2D987A0E-3984-4939-A14B-5B6D9630FEA8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2D987A0E-3984-4939-A14B-5B6D9630FEA8}.Release|x86.ActiveCfg = Release|Any CPU
+		{C308095D-1EC1-4C03-9746-72959EC0278A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C308095D-1EC1-4C03-9746-72959EC0278A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C308095D-1EC1-4C03-9746-72959EC0278A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C308095D-1EC1-4C03-9746-72959EC0278A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C308095D-1EC1-4C03-9746-72959EC0278A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C308095D-1EC1-4C03-9746-72959EC0278A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C308095D-1EC1-4C03-9746-72959EC0278A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C308095D-1EC1-4C03-9746-72959EC0278A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C308095D-1EC1-4C03-9746-72959EC0278A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C308095D-1EC1-4C03-9746-72959EC0278A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,9 +10,14 @@ namespace jstestcover.Instrumentation
     {
         public bool Verbose { get; set; }
 
+        public DirectoryInstrumenter(bool verbose)
+        {
+            Verbose = verbose;
+        }
+
         public void Instrument(string inputDir, string outputDir, List<string> excludes)
         {
-            var fileInstrumenter = new FileInstrumenter { Verbose = Verbose };
+            var fileInstrumenter = new FileInstrumenter(null, Verbose);
 
             //normalize
             if (!inputDir.EndsWith(Path.DirectorySeparatorChar.ToString()))
@@ -42,7 +47,7 @@ namespace jstestcover.Instrumentation
                     Directory.CreateDirectory(outputFullPath);
                 }
 
-                fileInstrumenter.Instrument(Path.Combine(inputDir, filename), outputFilename, Encoding.UTF8);
+                //fileInstrumenter.Instrument(Path.Combine(inputDir, filename), outputFilename, Encoding.UTF8);
             }
 
             //copy files and directories excluded from instrumentation, still need them to run tests

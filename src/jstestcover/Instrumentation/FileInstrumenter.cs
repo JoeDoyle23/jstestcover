@@ -8,40 +8,44 @@ namespace jstestcover.Instrumentation
     {
         public bool Verbose { get; set; }
 
-        public void Instrument(string inputFilename, string outputFilename, Encoding charSet)
+        readonly IInstrumenter instrumenter;
+
+        public FileInstrumenter(bool verbose)
+        {
+            Verbose = verbose;
+            instrumenter = new JavaScriptInstrumenter();
+        }
+
+        public FileInstrumenter(IInstrumenter instrumenter, bool verbose)
+        {
+            Verbose = verbose;
+            this.instrumenter = instrumenter;
+        }
+
+        public virtual void Instrument(Stream inputStream, Stream outputStream, string inputFilename)
         {
             if (Verbose)
             {
                 Console.WriteLine("[INFO] Preparing to instrument JavaScript file {0}.", inputFilename);
-                Console.WriteLine("[INFO] Output file will be {0}.", outputFilename);
             }
 
-            try
+            if (inputStream.Length == 0)
             {
-
-                using (var inputStream = new StreamReader(inputFilename, charSet))
-                using (var outputStream = new StreamWriter(outputFilename, false, charSet))
+                if (Verbose)
                 {
-
-                    //if the file is empty, don't bother instrumenting
-                    //if (inputFile.length() > 0){
-                    //strip out relative paths - that just messes up coverage report writing
-                    var instrumenter = new JavaScriptInstrumenter(inputStream, inputFilename);
-                    //in, inputFilename.replaceAll("\\.\\./", ""),(new File(inputFilename)).getCanonicalPath());
-                    instrumenter.Instrument(outputStream, Verbose);
-                    //} else {
-                    //    out.write("");
-                    //}
+                    Console.WriteLine("[WARN] The input stream for {0} is empty. Skipping file.", inputFilename);
                 }
+                return;
             }
-            catch (IOException ex)
-            {
-                throw ex;
-            }
+
+            var input = new StreamReader(inputStream, true);
+            var output = new StreamWriter(outputStream, Encoding.UTF8);
+
+            instrumenter.Instrument(input, inputFilename, output);
 
             if (Verbose)
             {
-                Console.WriteLine("[INFO] Created file {0}.", outputFilename);
+                Console.WriteLine("[INFO] Finished instrumenting file {0}.", inputFilename);
             }
         }
 

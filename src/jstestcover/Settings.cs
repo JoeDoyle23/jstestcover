@@ -22,8 +22,8 @@ namespace jstestcover
             return help;
         }
 
-        [Option("charset", HelpText = "Read the input file using specified charset.", MetaValue = "<charset>")]
-        public Encoding CharSet { get; set; }
+        [Option("config", HelpText = "Input file is the configuration file to be used.", MetaValue = "<config>")]
+        public bool IsConfig { get; set; }
 
         [Option('d', "dir", HelpText = "Input and output (-o) are both directories.")]
         public bool IsDirectories { get; set; }
