@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using NSubstitute;
 using NUnit.Framework;
+using jstestcover.Wrappers;
 
 namespace jstestcover.tests
 {
@@ -20,10 +21,10 @@ namespace jstestcover.tests
         [Test]
         public void BuildFileList_WhenIsDirectory_CallsDirectoryTraverserToGetAllJSFiles()
         {
-            var directory = Substitute.For<IDirectory>();
-            var builder = new FileListBuilder(directory);
+            var disk = Substitute.For<IDisk>();
+            var builder = new FileListBuilder(disk);
 
-            directory.GetFiles(@"C:\JavaScript", "*.js", SearchOption.AllDirectories)
+            disk.GetFiles(@"C:\JavaScript", "*.js", SearchOption.AllDirectories)
                 .Returns(new[]
                              {
                                  @"C:\JavaScript\File1.js",

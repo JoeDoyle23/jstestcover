@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using jstestcover.Instrumentation;
+using jstestcover.Wrappers;
 
 namespace jstestcover
 {
@@ -8,13 +10,15 @@ namespace jstestcover
     {
         readonly Settings settings;
         readonly FileListBuilder fileListBuilder;
+        readonly IDisk diskIo;
 
-        public CoverController(Settings settings) : this(settings, new FileListBuilder()) { }
+        public CoverController(Settings settings) : this(settings, new FileListBuilder(), new DiskWrapper()) { }
         
-        public CoverController(Settings settings, FileListBuilder fileListBuilder)
+        public CoverController(Settings settings, FileListBuilder fileListBuilder, IDisk diskIo)
         {
             this.settings = settings;
             this.fileListBuilder = fileListBuilder;
+            this.diskIo = diskIo;
         }
 
         public virtual void RunInstrumentation()
@@ -24,12 +28,58 @@ namespace jstestcover
 
         public virtual void RunInstrumentation(FileInstrumenter fileInstrumenter)
         {
-            var filesToProcess = fileListBuilder.BuildFileList(settings.IsConfig, settings.IsDirectories, settings.InputTarget);
+            var filesToProcess = fileListBuilder.BuildFileList(settings.IsConfig, settings.IsDirectory, settings.InputTarget);
 
-            //var input = new StreamReader(inputStream, true);
-            //var output = new StreamWriter(outputStream, Encoding.UTF8);
+            foreach (var javaScriptFile in filesToProcess)
+            {
+                if (!diskIo.Exists(javaScriptFile))
+                {
+                    if (settings.Verbose)
+                    {
+                        Console.WriteLine("Could not file to be processed: {0}", javaScriptFile);
+                    }
+                    
+                    continue;
+                }
 
+                var inputStream = new MemoryStream(diskIo.ReadAllBytes(javaScriptFile));
+                var inputReader = new StreamReader(inputStream, true);
+                var outputStream = new MemoryStream();
+                var outputWriter = new StreamWriter(outputStream, Encoding.UTF8);
 
+                fileInstrumenter.Instrument(inputReader, outputWriter, javaScriptFile);
+
+                inputReader.Close();
+
+                var outputFile = GetOutputFilePath(javaScriptFile);
+
+                diskIo.WriteAllBytes(outputFile, outputStream.ToArray());
+                outputWriter.Close();
+            }
+        }
+
+        private string GetOutputFilePath(string inputFile)
+        {
+            var outputFile = inputFile;
+
+            if (!string.IsNullOrWhiteSpace(settings.OutputLocation))
+            {
+                if (settings.IsDirectory)
+                {
+                    var fileInfo = new FileInfo(inputFile);
+                    var additionalPath = fileInfo.DirectoryName.Replace(settings.InputTarget, "");
+                    var outputPath = settings.OutputLocation + additionalPath;
+                    diskIo.CreateDirectory(outputPath);
+                    return string.Format(@"{0}\{1}", outputPath, fileInfo.Name);
+                }
+
+                if (!settings.IsConfig)
+                {
+                    outputFile = settings.OutputLocation;
+                }
+            }
+
+            return outputFile;
         }
     }
 }

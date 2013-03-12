@@ -87,7 +87,7 @@ namespace jstestcover.Instrumentation
 
         StringTemplateGroup LoadStringTemplateGroup()
         {
-            var stgstream = Assembly.GetExecutingAssembly().GetManifestResourceStream("ncoverjs.templates.ES3YUITestTemplates.stg");
+            var stgstream = Assembly.GetExecutingAssembly().GetManifestResourceStream("jstestcover.templates.ES3YUITestTemplates.stg");
             using (var streamReader = new StreamReader(stgstream))
             {
                 return new StringTemplateGroup(new StringReader(streamReader.ReadToEnd()));

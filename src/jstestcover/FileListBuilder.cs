@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using jstestcover.Wrappers;
 
 namespace jstestcover
 {
     public class FileListBuilder
     {
-        readonly IDirectory directory;
+        readonly IDisk disk;
 
-        public FileListBuilder() : this(new DirectoryWrapper()) {}
+        public FileListBuilder() : this(new DiskWrapper()) {}
 
-        public FileListBuilder(IDirectory directory)
+        public FileListBuilder(IDisk disk)
         {
-            this.directory = directory;
+            this.disk = disk;
         }
 
         public virtual IList<string> BuildFileList(bool isConfig, bool isDirectory, string inputTarget)
@@ -43,7 +44,7 @@ namespace jstestcover
                 return files;
             }
 
-            files.AddRange(directory.GetFiles(path, "*.js", SearchOption.AllDirectories));
+            files.AddRange(disk.GetFiles(path, "*.js", SearchOption.AllDirectories));
 
             return files;
         }

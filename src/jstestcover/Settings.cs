@@ -26,7 +26,7 @@ namespace jstestcover
         public bool IsConfig { get; set; }
 
         [Option('d', "dir", HelpText = "Input and output (-o) are both directories.")]
-        public bool IsDirectories { get; set; }
+        public bool IsDirectory { get; set; }
 
         [Option('v', "verbose", HelpText = "Display informational messages and warnings.")]
         public bool Verbose { get; set; }
