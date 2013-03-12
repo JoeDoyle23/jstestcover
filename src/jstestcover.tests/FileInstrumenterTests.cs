@@ -21,8 +21,8 @@ namespace jstestcover.tests
         [Test]
         public void Instrument_WhenInputStreamIsEmpty_ReturnsWithoutCallingInstrumenter()
         {
-            var inputStream = new MemoryStream();
-            var outputStream = new MemoryStream();
+            var inputStream = new StreamReader(new MemoryStream());
+            var outputStream = new StreamWriter(new MemoryStream());
 
             fileInstrumenter.Instrument(inputStream, outputStream, "");
 
@@ -32,8 +32,9 @@ namespace jstestcover.tests
         [Test]
         public void Instrument_WhenInputStreamIsNotEmpty_CallsInstrumenter()
         {
-            var inputStream = new MemoryStream(new byte[] { 1 });
-            var outputStream = new MemoryStream();
+            var input = new MemoryStream(new byte[] { 1 });
+            var inputStream = new StreamReader(input);
+            var outputStream = new StreamWriter(new MemoryStream());
 
             fileInstrumenter.Instrument(inputStream, outputStream, "");
 

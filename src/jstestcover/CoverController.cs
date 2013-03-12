@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.IO;
+using System.Text;
 using jstestcover.Instrumentation;
 
 namespace jstestcover
@@ -6,45 +7,29 @@ namespace jstestcover
     public class CoverController
     {
         readonly Settings settings;
+        readonly FileListBuilder fileListBuilder;
 
-        public CoverController(Settings settings)
+        public CoverController(Settings settings) : this(settings, new FileListBuilder()) { }
+        
+        public CoverController(Settings settings, FileListBuilder fileListBuilder)
         {
             this.settings = settings;
+            this.fileListBuilder = fileListBuilder;
         }
 
-        public void RunInstrumentation()
+        public virtual void RunInstrumentation()
         {
-            RunInstrumentation(new FileInstrumenter(settings.Verbose), new DirectoryInstrumenter(settings.Verbose));
+            RunInstrumentation(new FileInstrumenter(settings.Verbose));
         }
 
-        public void RunInstrumentation(FileInstrumenter fileInstrumenter, DirectoryInstrumenter directoryInstrumenter)
+        public virtual void RunInstrumentation(FileInstrumenter fileInstrumenter)
         {
-            var filesToProcess = BuildFileList();
-        }
+            var filesToProcess = fileListBuilder.BuildFileList(settings.IsConfig, settings.IsDirectories, settings.InputTarget);
 
-        private IList<string> BuildFileList()
-        {
-            if (settings.IsConfig)
-            {
-                return BuildFileListFromConfig();
-            }
-            
-            if (settings.IsDirectories)
-            {
-                return BuildFileListFromDirectory();
-            }
+            //var input = new StreamReader(inputStream, true);
+            //var output = new StreamWriter(outputStream, Encoding.UTF8);
 
-            return new List<string> {settings.InputTarget};
-        }
 
-        private IList<string> BuildFileListFromConfig()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private IList<string> BuildFileListFromDirectory()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

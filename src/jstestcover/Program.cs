@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using System.Text;
-using jstestcover.Instrumentation;
 
 namespace jstestcover
 {
@@ -13,16 +11,13 @@ namespace jstestcover
 
             var settings = new Settings();
 
-            if (!CommandLine.Parser.Default.ParseArguments(args, settings))
-                return;
-
-            if (string.IsNullOrEmpty(settings.InputTarget))
+            if (!CommandLine.Parser.Default.ParseArguments(args, settings) || string.IsNullOrEmpty(settings.InputTarget))
             {
-                Console.WriteLine(settings.GetUsage());
+                Console.WriteLine(settings.GetUsage()); 
+                return;
             }
 
             var coverController = new CoverController(settings);
-            
             coverController.RunInstrumentation();
         }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 
 namespace jstestcover.Instrumentation
 {
@@ -22,14 +21,14 @@ namespace jstestcover.Instrumentation
             this.instrumenter = instrumenter;
         }
 
-        public virtual void Instrument(Stream inputStream, Stream outputStream, string inputFilename)
+        public virtual void Instrument(StreamReader inputStream, StreamWriter outputStream, string inputFilename)
         {
             if (Verbose)
             {
                 Console.WriteLine("[INFO] Preparing to instrument JavaScript file {0}.", inputFilename);
             }
 
-            if (inputStream.Length == 0)
+            if (inputStream.BaseStream.Length == 0)
             {
                 if (Verbose)
                 {
@@ -38,10 +37,7 @@ namespace jstestcover.Instrumentation
                 return;
             }
 
-            var input = new StreamReader(inputStream, true);
-            var output = new StreamWriter(outputStream, Encoding.UTF8);
-
-            instrumenter.Instrument(input, inputFilename, output);
+            instrumenter.Instrument(inputStream, inputFilename, outputStream);
 
             if (Verbose)
             {
