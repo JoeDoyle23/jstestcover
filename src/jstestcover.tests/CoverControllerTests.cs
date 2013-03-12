@@ -101,8 +101,7 @@ namespace jstestcover.tests
             SetupSettingsForDirectoryProcessing();
 
             var inputFile = @"C:\JavaScript\App\File1.js";
-            var expectedFile = @"C:\Output\App\File1.js";
-
+            
             fileListBuilder.BuildFileList(settings.IsConfig, settings.IsDirectory, settings.InputTarget)
                 .Returns(new List<string> { inputFile });
 

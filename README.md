@@ -11,6 +11,21 @@ It includes a pre-compiled ANTLR 3.5 Lexer and Parser for the ES3 version of Jav
 My goal it to be compatible with the original yuitest coverage tool, but with minor 
 improvements and additional features.
 
+## Building
+You can build the apps by running build.cmd from the command prompt.  The output will be in the build folder.
+		
+		build
+
+To build the debug version:
+		
+		build debug
+
+To build the debug version and run the tests:
+	
+		build tests
+
+If you just want to get going, use the binary in the build folder.
+
 ## Usage
 Instrumenting a single file, instrumented in place.
 		

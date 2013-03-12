@@ -25,7 +25,7 @@ namespace jstestcover
         {
             AppDomain.CurrentDomain.AssemblyResolve += (sender, arguments) =>
                 {
-                    var resourceName = "ncoverjs.lib." + new AssemblyName(arguments.Name).Name + ".dll";
+                    var resourceName = "jstestcover.lib." + new AssemblyName(arguments.Name).Name + ".dll";
                     using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
                     {
                         var assemblyData = new Byte[stream.Length];
