@@ -1,0 +1,15 @@
+﻿# Culture / ResourceManager indipendent resources
+
+ArgumentNullException_ArgsStringArrayCannotBeNull = The arguments string array cannot be null.
+ArgumentNullException_OptionsInstanceCannotBeNull = The target options instance cannot be null.
+ArgumentNullException_CommandLineParserSettingsInstanceCannotBeNull = The command line parser settings instance cannot be null.
+ArgumentNullException_AttributeCannotBeNull = The attribute is mandatory.
+ArgumentNullException_PropertyCannotBeNull = The property is mandatory.
+CommandLineParserException_CannotCreateInstanceForVerbCommand = Instance defined for verb command could not be created.
+ArgumentException_NoWhiteSpaceOrLineTerminatorInShortName = shortName with whitespace or line terminator character is not allowed.
+ArgumentNullException_LongNameCannotBeNullWhenShortNameIsUndefined = The option must have short, long name or both.
+MemberAccessException_BadSignatureForHelpVerbOptionAttribute = {0} has an incorrect signature. Help verb command requires a method that accepts and returns a string.
+InvalidOperationException_DoNotUseShortNameForVerbCommands = Verb commands do not support short name by design.
+InvalidOperationException_DoNotSetRequiredPropertyForVerbCommands = Verb commands cannot be mandatory since are mutually exclusive by design.
+CommandLineParserException_IncompatibleTypes = The types are incompatible.
+InvalidOperationException_CopyrightInfoRequiresAssemblyCopyrightAttributeOrAssemblyCompanyAttribute = CopyrightInfo::Default requires that you define AssemblyCopyrightAttribute or AssemblyCompanyAttribute.
