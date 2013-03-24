@@ -24,7 +24,7 @@ namespace jstestcoverreporter
         [Option('v', "verbose", HelpText = "Display informational messages and warnings.")]
         public bool Verbose { get; set; }
 
-        [Option('o', HelpText = "Place the output into <file|dir> instead of overwriting the original file.", MetaValue = "<file|dir>")]
+        [Option('o', HelpText = "Place the output into <file|dir>", MetaValue = "<file|dir>")]
         public string OutputLocation { get; set; }
 
         [Option('f', "format", HelpText = "Output reports in <format>. Defaults to HTML.", MetaValue = "<file|dir>")]

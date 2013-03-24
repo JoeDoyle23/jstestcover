@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace jstestcoverreporter
 {
-    public class FileCoverage
+    public class FileCoverageData
     {
         [JsonProperty("lines")]
         public Dictionary<string, int> Lines { get; set; }
@@ -22,7 +22,7 @@ namespace jstestcoverreporter
         [JsonProperty("path")]
         public string Path { get; set; }
 
-        public FileCoverage()
+        public FileCoverageData()
         {
             Lines = new Dictionary<string, int>();
             Functions = new Dictionary<string, int>();
